@@ -182,7 +182,8 @@ nmap <C-\>w :StripWhitespace <CR><CR>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-let g:linuxsty_patterns = [ "/home/jacob.wang/pica8/os-dev" ]
+"let g:linuxsty_patterns = [ "/home/jacob.wang/pica8/os-dev" "/home/jacob.wang/workspace/linux_kernel" ]
+let g:linuxsty_patterns = [ "/.*linux-.*/", "/.*driver.*/" ]
 
 let g:airline_powerline_fonts = 1
 
