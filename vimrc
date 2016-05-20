@@ -18,23 +18,23 @@ set colorcolumn=81
 "==============================================================================
 "Vim settings
 "==============================================================================
-set ruler                       "disply the row col number in the task bar
+"set ruler                       "disply the row col number in the task bar
 set ic                          "ignore case in search
 set laststatus=2                "status bar on always
-set showtabline=2               "tab bar on alwasy
-set splitright                  "new window alwasys on right
+"set showtabline=2               "tab bar on alwasy
+"set splitright                  "new window alwasys on right
 set wildmenu                    "smart cmd completion option on status bar
 set wildmode=full               "smart cmd completion option on status bar zsh
 set autoindent                  "next line starts in the same point
 set incsearch                   "highlights search patter while typing the pattern
 set hlsearch                    "highlights all the search pattern
 set tagstack                    "Control t and ] for tags.
-set guioptions-=T               "Disable the tools bar for gvim
+"set guioptions-=T               "Disable the tools bar for gvim
 set ch=2                        "set the command line high
 set tabpagemax=10               "Set tab limits
 set fillchars+=vert:\           "Set the vertical split without any char
 set cursorline                  "higlight the cursor line
-set number                     "Show line number
+set number                      "Show line number
 set pastetoggle=<F5>            "set paste use the system Clipboard
 set history=200                 "set the history 200 command line
 
