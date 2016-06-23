@@ -152,13 +152,7 @@ nmap <C-\>/ :MRU <CR>
 nmap <silent><C-\>1 :ConqueTermTab bash <CR>
 nmap <silent><C-\>2 :ConqueTermVSplit bash <CR>
 
-"powerline
-"
-"set guifont=PowerlineSymbols\ for\ Powerline
-"set guifont=
 set nocompatible
-"set t_Co=256
-"let g:Powerline_symbols = 'fancy'
 
 " Tagbar
 "nmap <slient> <F8> :TagbarToggle<CR>
@@ -167,11 +161,6 @@ set nocompatible
 " =====================
 nmap <C-\>w :StripWhitespace <CR><CR>
 
-
-"YouCompleteMe
-"let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-"let g:ycm_global_ycm_extra_conf = 0
-
 "Windows
 "map <C-j> <C-W>j
 "map <C-k> <C-W>k
@@ -179,27 +168,29 @@ nmap <C-\>w :StripWhitespace <CR><CR>
 "map <C-l> <C-W>l
 
 "ex_mode history-scrollers
+"=====================
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-"let g:linuxsty_patterns = [ "/home/jacob.wang/pica8/os-dev" "/home/jacob.wang/workspace/linux_kernel" ]
+"linux code style
+"=====================
 let g:linuxsty_patterns = [ "/.*linux-.*/", "/.*driver.*/" ]
 
+"airline
+"=====================
 let g:airline_powerline_fonts = 1
 
-" ctrlp.vim
-" =====================
-" 'c' - the directory of the current file.
-" 'r' - the nearest ancestor that contains one of these directories or files:
-" .git .hg .svn .bzr _darcs
-" 'a' - like c, but only if the current working directory outside of CtrlP is
-" not a direct ancestor of the directory of the current file.
-" 0 or '' (empty string) - disable this feature.
+"ctrlp.vim
+"=====================
+"'c'                         the directory of the current file.
+"'r'                         the nearest ancestor that contains one of these directories or files:
+"                            .git .hg .svn .bzr _darcs
+"'a'                         like c, but only if the current working directory outside of CtrlP is
+"                            not a direct ancestor of the directory of the current file.
+"0 or '' (empty string)      disable this feature.
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -208,36 +199,12 @@ let g:ctrlp_custom_ignore = {
 
 " ctrlp-funky
 " =====================
-"let mapleader = ","
-
 nnoremap <C-\>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <C-\>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-"nnoremap <Leader>fu :CtrlPFunky<Cr>
-"" narrow the list down with a word under cursor
-"nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
-" vim-easymotion
-" =====================
-"let g:EasyMotion_do_mapping = 0 " Disable default mappings
-"
-"" Jump to anywhere you want with minimal keystrokes, with just one key binding. 
-"" `s{char}{label}`
-"nmap s <Plug>(easymotion-overwin-f)
-"" or
-"" `s{char}{char}{label}`
-"" Need one more keystroke, but on average, it may be more comfortable.
-"nmap s <Plug>(easymotion-overwin-f2)
-"
-"" Turn on case insensitive feature
-"let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-"map <Leader>j <Plug>(easymotion-j)
-"map <Leader>k <Plug>(easymotion-k)
-
-" matchit % '' ``
-let loaded_matchit = 1
+"vim-easymotion
+"=====================
 
 " Set high visibility for diff mode
 "let g:solarized_diffmode="high"
