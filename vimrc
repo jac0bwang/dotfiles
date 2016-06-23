@@ -197,7 +197,7 @@ let g:airline_powerline_fonts = 1
 " 0 or '' (empty string) - disable this feature.
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 "let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
@@ -210,6 +210,9 @@ let g:ctrlp_custom_ignore = {
 " =====================
 "let mapleader = ","
 
+nnoremap <C-\>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <C-\>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 "nnoremap <Leader>fu :CtrlPFunky<Cr>
 "" narrow the list down with a word under cursor
 "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
