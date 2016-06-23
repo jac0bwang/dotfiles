@@ -112,6 +112,8 @@ alias lc='locate'
 alias cp='cp -i '
 alias mv='mv -i '
 alias rm='rm -i'
+alias cl='TERM=xterm-color'
+alias cls='TERM=xterm-256color'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -139,5 +141,5 @@ fi
 
 export TERM=xterm-256color
 # make menuconfig
-export TERM=xterm-color
+#export TERM=xterm-color
 
