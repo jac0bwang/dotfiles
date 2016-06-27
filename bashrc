@@ -142,4 +142,5 @@ fi
 export TERM=xterm-256color
 # make menuconfig
 #export TERM=xterm-color
+export TERM=screen-256color
 

@@ -14,6 +14,7 @@ set nosmarttab expandtab
 "set textwidth=80                "line width
 " 80 characters line
 set colorcolumn=81
+set term=screen-256color
 
 "==============================================================================
 "Vim settings
