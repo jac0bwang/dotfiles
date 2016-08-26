@@ -32,7 +32,7 @@ set hlsearch                    "highlights all the search pattern
 set tagstack                    "Control t and ] for tags.
 "set guioptions-=T               "Disable the tools bar for gvim
 set ch=2                        "set the command line high
-set tabpagemax=10               "Set tab limits
+set tabpagemax=30               "Set tab limits
 set fillchars+=vert:\           "Set the vertical split without any char
 set cursorline                  "higlight the cursor line
 set number                      "Show line number
