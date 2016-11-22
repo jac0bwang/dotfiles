@@ -4,6 +4,7 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+set encoding=utf-8
 
 "==============================================================================
 "coding standard guidelines.
@@ -180,6 +181,7 @@ let g:linuxsty_patterns = [ "/.*linux-.*/", "/.*driver.*/" ]
 "airline
 "=====================
 let g:airline_powerline_fonts = 1
+"let g:airline_theme='powerlineish'
 
 "ctrlp.vim
 "=====================
