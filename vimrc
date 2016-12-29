@@ -35,7 +35,7 @@ set tagstack                    "Control t and ] for tags.
 set ch=2                        "set the command line high
 set tabpagemax=30               "Set tab limits
 set fillchars+=vert:\           "Set the vertical split without any char
-set cursorline                  "higlight the cursor line
+"set cursorline                  "higlight the cursor line
 set number                      "Show line number
 set pastetoggle=<F5>            "set paste use the system Clipboard
 set history=200                 "set the history 200 command line
