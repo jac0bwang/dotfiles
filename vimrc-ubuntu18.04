@@ -1,0 +1,594 @@
+" ==============Vundle插件管理==============
+" Vundle manage
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" Snipmate
+" MiniBufferExplorer Syntastic SuperTab
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar' " Tag bar"
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'jistr/vim-nerdtree-tabs'
+" 这是一款用于快速高效注释代码的插件
+Plugin 'scrooloose/nerdcommenter'
+"Plugin 'vim-scripts/winmanager'
+Plugin 'vim-airline/vim-airline' | Plugin 'vim-airline/vim-airline-themes' " Status line"
+" 自动匹配括号、引号
+Plugin 'jiangmiao/auto-pairs'
+" 强大的撤销更改功能
+Plugin 'mbbill/undotree'
+"Plugin 'gdbmgr'
+" 代码缩进标识
+"Plugin 'Yggdroot/indentLine' " Indentation level"
+Plugin 'bling/vim-bufferline' " Buffer line"
+"Plugin 'kepbod/quick-scope' " Quick scope
+"Plugin 'yianwillis/vimcdoc'
+"Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'ludovicchabant/vim-gutentags' " 自动生成索引
+Plugin 'w0rp/ale'
+Plugin 'mbbill/echofunc'
+Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plugin 'ntpeters/vim-better-whitespace'
+"Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'kien/ctrlp'
+Plugin 'tpope/vim-surround'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'airblade/vim-gitgutter'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+" Enable filetype plugins
+filetype plugin indent on    " required
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+"command W w !sudo tee % > /dev/null
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+set wildmenu    " Turn on the Wild menu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+set ruler       "Always show current position
+set cmdheight=2 " Height of the command bar
+set hid         " A buffer becomes hidden when it is abandoned
+set ignorecase  " Ignore case when searching
+set smartcase   " When searching try to be smart about cases
+set hlsearch    " Highlight search results
+set incsearch   " Makes search act like search in modern browsers
+set lazyredraw  " Don't redraw while executing macros (good performance config)
+set magic       " For regular expressions turn magic on
+set showmatch   " Show matching brackets when text indicator is over them
+set mat=2       " How many tenths of a second to blink when matching brackets
+set fdc=1       " Add a bit extra margin to the left --- foldcolumn
+
+" No annoying sound on errors --- belloff
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+"""" Configure backspace so it acts as it should act
+"""set backspace=eol,start,indent
+"""set whichwrap+=<,>,h,l
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" => Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable
+
+set term=screen-256color " Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+set ffs=unix,dos,mac     " Use Unix as the standard file type
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Method 1
+"set softtabstop=4
+"set shiftwidth=4
+"set tabstop=8
+"set noexpandtab
+
+" Method 2
+"set shiftwidth=4
+"set tabstop=4
+"set expandtab
+set shiftwidth=4 tabstop=4
+set softtabstop=4         
+set nosmarttab expandtab  
+
+"""" Method 3
+"""set shiftwidth=4
+"""set tabstop=4
+"""set modeline
+"""
+"""" Method 4
+"""" Use spaces instead of tabs
+"""set expandtab
+"""
+"""" Be smart when using tabs ;)
+"""set nosmarttab
+"""
+"""" 1 tab == 4 spaces
+"""set softtabstop=4
+"""set shiftwidth=4
+"""set tabstop=8
+"
+"" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+set textwidth=80                "line width
+set colorcolumn=80		" 80 characters line
+set tagstack                    "Control t and ] for tags.
+set tabpagemax=30               "Set tab limits
+set fillchars+=vert:\           "Set the vertical split without any char
+set cursorline                  "higlight the cursor line
+set number                      "Show line number
+set pastetoggle=<F5>            "set paste use the system Clipboard
+set history=200                 "set the history 200 command line
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+"" Visual mode pressing * or # searches for the current selection
+"" Super useful! From an idea by Michael Naumann
+"vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+"vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+"map <c-space> ?
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+noremap <C-Down>  <C-W>j
+noremap <C-Up>    <C-W>k
+noremap <C-Left>  <C-W>h
+noremap <C-Right> <C-W>l
+
+" Tabs
+"======
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+"Mapping to ALT 1 to 9. Do the following to find to key ascii to map
+"set showcmd
+"go the window in the insert mode then type the key u want
+"if u see any value than that value can be mapped
+nmap 11 :tabn 1 <CR>
+nmap 22 :tabn 2 <CR>
+nmap 33 :tabn 3 <CR>
+nmap 44 :tabn 4 <CR>
+nmap 55 :tabn 5 <CR>
+nmap 66 :tabn 6 <CR>
+nmap 77 :tabn 7 <CR>
+nmap 88 :tabn 8 <CR>
+nmap 99 :tabn 9 <CR>
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+"map 0 ^
+"
+"" Move a line of text using ALT+[jk] or Command+[jk] on mac
+"nmap <M-j> mz:m+<cr>`z
+"nmap <M-k> mz:m-2<cr>`z
+"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+"
+"if has("mac") || has("macunix")
+"  nmap <D-j> <M-j>
+"  nmap <D-k> <M-k>
+"  vmap <D-j> <M-j>
+"  vmap <D-k> <M-k>
+"endif
+"
+"" Delete trailing white space on save, useful for some filetypes ;)
+"fun! CleanExtraSpaces()
+"    let save_cursor = getpos(".")
+"    let old_query = getreg('/')
+"    silent! %s/\s\+$//e
+"    call setpos('.', save_cursor)
+"    call setreg('/', old_query)
+"endfun
+"
+"if has("autocmd")
+"    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+"endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Pressing ,ss will toggle and untoggle spell checking
+""map <leader>ss :setlocal spell!<cr>
+""
+""" Shortcuts using <leader>
+""map <leader>sn ]s
+""map <leader>sp [s
+""map <leader>sa zg
+""map <leader>s? z=
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+""""""""""""""""""""""""""""""
+" => Python section
+""""""""""""""""""""""""""""""
+let python_highlight_all = 1
+au FileType python syn keyword pythonDecorator True None False self
+
+au BufNewFile,BufRead *.jinja set syntax=htmljinja
+au BufNewFile,BufRead *.mako set ft=mako
+
+au FileType python map <buffer> F :set foldmethod=indent<cr>
+
+au FileType python inoremap <buffer> $r return
+au FileType python inoremap <buffer> $i import
+au FileType python inoremap <buffer> $p print
+au FileType python inoremap <buffer> $f # --- <esc>a
+au FileType python map <buffer> <leader>1 /class
+au FileType python map <buffer> <leader>2 /def
+au FileType python map <buffer> <leader>C ?class
+au FileType python map <buffer> <leader>D ?def
+au FileType python set cindent
+au FileType python set cinkeys-=0#
+au FileType python set indentkeys-=0#
+
+""""""""""""""""""""""""""""""
+" => MRU plugin
+""""""""""""""""""""""""""""""
+let MRU_Max_Entries = 400
+map <leader>f :MRU<CR>
+
+"""""""""""""""""""""""""""""""""
+"""" => CTRL-P
+"""""""""""""""""""""""""""""""""
+"""
+"""" Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.
+"""" Run :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode.
+"""" Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.
+"""" Check :help ctrlp-commands and :help ctrlp-extensions for other commands.
+""""
+"""" Once CtrlP is open:
+"""" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+"""" Press <c-f> and <c-b> to cycle between modes.
+"""" Press <c-d> to switch to filename only search instead of full path.
+"""" Press <c-r> to switch to regexp mode.
+"""" Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+"""" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+"""" Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+"""" Use <c-y> to create a new file and its parent directories.
+"""" Use <c-z> to mark/unmark multiple files and <c-o> to open them.
+""""'c' - the directory of the current file.
+""""'r' - the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr _darcs
+""""'a' - like c, but only if the current working directory outside of CtrlP is not a direct ancestor of the directory of the current file.
+""""0 or '' (empty string) - disable this feature.
+"""let g:ctrlp_working_path_mode = "ra"
+"""let g:ctrlp_map = '<c-p>'
+"""let g:ctrlp_cmd = 'CtrlP'
+"""
+"""set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"""let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+"""let g:ctrlp_custom_ignore = {
+"""  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"""  \ 'file': '\v\.(exe|so|dll)$',
+"""  \ 'link': 'some_bad_symbolic_links',
+"""  \ }"
+"""
+""""let g:ctrlp_map = '<c-f>'
+"""map <leader>j :CtrlP<cr>
+""""map <c-b> :CtrlPBuffer<cr>
+"""
+"""let g:ctrlp_max_height = 20
+"""
+"""""""""""""""""""""""""""""""""
+"""" => Vim grep
+"""""""""""""""""""""""""""""""""
+"""let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated .git .gitignore'
+"""set grepprg=/bin/grep\ -nH
+"""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" => vim-multiple-cursors
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""let g:multi_cursor_use_default_mapping=0
+"""
+"""" Default mapping
+""""let g:multi_cursor_start_word_key      = '<C-s>'
+""""let g:multi_cursor_select_all_word_key = '<A-s>'
+""""let g:multi_cursor_start_key           = 'g<C-s>'
+""""let g:multi_cursor_select_all_key      = 'g<A-s>'
+""""let g:multi_cursor_next_key            = '<C-s>'
+""""let g:multi_cursor_prev_key            = '<C-p>'
+""""let g:multi_cursor_skip_key            = '<C-x>'
+""""let g:multi_cursor_quit_key            = '<Esc>'
+"""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" => surround.vim config
+"""" Annotate strings with gettext
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""vmap Si S(i_<esc>f)
+""""au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Git gutter (Git diff)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gitgutter_enabled=0
+nnoremap <silent> <leader>d :GitGutterToggle<cr>
+
+"Tlist keymap
+"=============
+nmap <leader>] :TlistToggle<CR><CR>
+
+" Stripping white space
+" =====================
+"nmap <C-\>w :StripWhitespace <CR><CR>
+nmap <leader>s :StripWhitespace <CR><CR>
+
+"undotree
+nnoremap <leader>u :UndotreeToggle<cr>
+set undodir=~/.undodir/
+set undofile
+
+" ==============YCM==============
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+" YCM 查找定义
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
+let g:ycm_complete_in_strings=1
+
+noremap <c-z> <NOP>
+let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
+let g:ycm_max_num_candidates = 15  " 候选数量
+
+let g:ycm_semantic_triggers =  {
+			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+			\ 'cs,lua,javascript': ['re!\w{2}'],
+			\ }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Nerd Tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=0
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let NERDTreeWinSize=20
+"let NERDTreeShowLineNumbers=1
+let NERDTreeAutoCenter=1
+" 显示书签列表
+let NERDTreeShowBookmarks=1
+" 在终端启动vim时，共享NERDTree
+" let g:nerdtree_tabs_open_on_console_startup=1
+
+" Nerdcommenter
+"===================================
+" <leader>cc   加注释
+" <leader>cu   解开注释
+" <leader>c<space>  加上/解开注释, 智能判断
+" <leader>cy   先复制, 再注解(p可以进行黏贴)
+"===================================
+" 注释的时候自动加个空格, 强迫症必配
+let g:NERDSpaceDelims=1
+
+"let g:winManagerWindowLayout='TagList'
+"let g:winManagerWindowLayout='FileExplorer'
+"nmap wm :WMToggle<cr>
+
+" ======ALE静态语法检测========
+"let g:ale_sign_column_always = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = 'w'
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+"let g:airline#extensions#ale#enabled = 1
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+" Linux code style
+" =====================
+let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/" ]
+
+" ========airline状态栏=========
+" Airline
+" =====================
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_b = '%-0.10{getcwd()}'
+let g:airline_section_c = '%t'
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_section_y = ''
+
+"--------------------------------------------------------------------------------
+" cscope:建立数据库：
+" cscope -Rbq；
+"--------------------------------------------------------------------------------
+if has("cscope")
+  set csprg=/usr/bin/cscope
+  set csto=1
+  set cst
+  set nocsverb
+  " add any database in current directory
+  if filereadable("cscope.out")
+      cs add cscope.out
+  endif
+  set csverb
+endif
+
+"==============================================================================
+"Key maps
+"==============================================================================
+"       0 or s: Find this C symbol
+"       1 or g: Find this definition
+"       2 or d: Find functions called by this function
+"       3 or c: Find functions calling this function
+"       4 or t: Find this text string
+"       6 or e: Find this egrep pattern
+"       7 or f: Find this file
+"       8 or i: Find files #including this file
+" 设定是否使用 quickfix 窗口来显示 cscope 结果
+:set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+"nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+"F5 查找c符号； F6 查找字符串；   F7 查找函数定义； F8 查找函数谁调用了，
+"nmap <silent> <F5> :cs find s <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
+"nmap <silent> <F6> :cs find t <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
+""nmap <silent> <F7> :cs find g <C-R>=expand("<cword>")<CR><CR>
+"nmap <silent> <F7> :cs find c <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
+
+" =======echofunc 显示函数参数===========
+" ctags -R --fields=+lS .
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
+
+
+"" ===========gutentags=============
+"" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
+"
+"" 添加ctags额外参数，会让tags文件变大
+"" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
+" let g:gutentags_ctags_extra_args = ['--fields=+lS']
+"" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+"" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+"
+"if isdirectory("kernel/") && isdirectory("mm/")
+"	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
+"endif
+
+"-------------------------------------------------------------------------------
+"  自动加载ctags: ctags -R
+if filereadable("tags")
+      set tags=tags
+endif
+
+"--------------------------------------------------------------------------------
+" global:建立数据库
+"--------------------------------------------------------------------------------
+if filereadable("GTAGS")
+	set cscopetag
+	set cscopeprg=gtags-cscope
+	cs add GTAGS
+	au BufWritePost *.c,*.cpp,*.h silent! !global -u &
+endif

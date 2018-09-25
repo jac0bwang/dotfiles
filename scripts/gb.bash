@@ -167,7 +167,7 @@ function ctag_upt()
 {
     echo "Start to build ctags"
     rm -f $BR_INFO_DIR/tags
-    cd $BR_INFO_DIR; ctags -L cscope.files; cd - ;
+    cd $BR_INFO_DIR; ctags --fields=+lS -L cscope.files; cd - ;
     echo "Done"
     echo "-> Cscope updated on [`date`]@[`uname -n`]" >> $WS_BASE_/$COMMON_INFO_DIR/sv_log
 }
