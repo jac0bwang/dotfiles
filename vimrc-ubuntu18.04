@@ -36,11 +36,12 @@ Plugin 'mbbill/echofunc'
 Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plugin 'ntpeters/vim-better-whitespace'
 "Plugin 'terryma/vim-multiple-cursors'
+Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'kien/ctrlp'
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'nsf/gocode', {'rtp': 'vim/'} " GO
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -91,8 +92,9 @@ set mat=2       " How many tenths of a second to blink when matching brackets
 set fdc=1       " Add a bit extra margin to the left --- foldcolumn
 
 " No annoying sound on errors --- belloff
-set noerrorbells
-set novisualbell
+"set noerrorbells
+"set novisualbell
+set belloff=all
 set t_vb=
 set tm=500
 
@@ -298,14 +300,14 @@ set laststatus=2
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+"" Quickly open a buffer for scribble
+"map <leader>q :e ~/buffer<cr>
+"
+"" Quickly open a markdown buffer for scribble
+"map <leader>x :e ~/buffer.md<cr>
+"
+"" Toggle paste mode on and off
+"map <leader>pp :setlocal paste!<cr>
 
 """"""""""""""""""""""""""""""
 " => Python section
@@ -428,6 +430,7 @@ set undofile
 " ==============YCM==============
 let g:ycm_server_python_interpreter='/usr/bin/python'
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+
 " YCM 查找定义
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
@@ -442,7 +445,7 @@ let g:ycm_complete_in_strings=1
 
 noremap <c-z> <NOP>
 let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
-let g:ycm_max_num_candidates = 15  " 候选数量
+let g:ycm_max_num_candidates = 30  " 候选数量
 
 let g:ycm_semantic_triggers =  {
 			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
@@ -539,43 +542,38 @@ endif
 "       7 or f: Find this file
 "       8 or i: Find files #including this file
 " 设定是否使用 quickfix 窗口来显示 cscope 结果
-:set cscopequickfix=s-,c-,d-,i-,t-,e-
+set cscopequickfix=s-,c-,d-,i-,t-,e-
 
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-"nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-"F5 查找c符号； F6 查找字符串；   F7 查找函数定义； F8 查找函数谁调用了，
-"nmap <silent> <F5> :cs find s <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
-"nmap <silent> <F6> :cs find t <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
-""nmap <silent> <F7> :cs find g <C-R>=expand("<cword>")<CR><CR>
-"nmap <silent> <F7> :cs find c <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
+nmap <leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <leader>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 " =======echofunc 显示函数参数===========
 " ctags -R --fields=+lS .
 set completeopt=menu,menuone
 let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
 
+" ===========gutentags=============
+" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
 
-"" ===========gutentags=============
-"" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-"let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
-"
-"" 添加ctags额外参数，会让tags文件变大
-"" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
-" let g:gutentags_ctags_extra_args = ['--fields=+lS']
-"" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-"" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-"
-"if isdirectory("kernel/") && isdirectory("mm/")
-"	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
-"endif
+" 添加ctags额外参数，会让tags文件变大
+" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
+ let g:gutentags_ctags_extra_args = ['--fields=+lS']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+if isdirectory("kernel/") && isdirectory("mm/")
+	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
+endif
+
+" 禁用 gutentags 自动加载 gtags 数据库的行为
+let g:gutentags_auto_add_gtags_cscope = 0
 
 "-------------------------------------------------------------------------------
 "  自动加载ctags: ctags -R
@@ -592,3 +590,22 @@ if filereadable("GTAGS")
 	cs add GTAGS
 	au BufWritePost *.c,*.cpp,*.h silent! !global -u &
 endif
+
+" Quickfix
+" =============================================================================
+nnoremap <leader>q :call QuickfixToggle()<cr>
+
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+    else
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
+nnoremap <leader>cn :cn<cr>
+nnoremap <leader>cp :cp<cp>
