@@ -18,7 +18,8 @@ Plugin 'jistr/vim-nerdtree-tabs'
 " 这是一款用于快速高效注释代码的插件
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'vim-scripts/winmanager'
-Plugin 'vim-airline/vim-airline' | Plugin 'vim-airline/vim-airline-themes' " Status line"
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes' " Status line"
 " 自动匹配括号、引号
 Plugin 'jiangmiao/auto-pairs'
 " 强大的撤销更改功能
@@ -30,7 +31,7 @@ Plugin 'bling/vim-bufferline' " Buffer line"
 "Plugin 'kepbod/quick-scope' " Quick scope
 "Plugin 'yianwillis/vimcdoc'
 "Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'ludovicchabant/vim-gutentags' " 自动生成索引
+" Plugin 'ludovicchabant/vim-gutentags' " 自动生成索引
 Plugin 'w0rp/ale'
 Plugin 'mbbill/echofunc'
 Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -66,7 +67,7 @@ nmap <leader>w :w!<cr>
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+"set so=7
 
 set wildmenu    " Turn on the Wild menu
 
@@ -134,8 +135,8 @@ set noswapfile
 "set tabstop=4
 "set expandtab
 set shiftwidth=4 tabstop=4
-set softtabstop=4         
-set nosmarttab expandtab  
+set softtabstop=4
+set nosmarttab expandtab
 
 """" Method 3
 """set shiftwidth=4
@@ -327,7 +328,7 @@ au FileType python inoremap <buffer> $f # --- <esc>a
 au FileType python map <buffer> <leader>1 /class
 au FileType python map <buffer> <leader>2 /def
 au FileType python map <buffer> <leader>C ?class
-au FileType python map <buffer> <leader>D ?def
+"au FileType python map <buffer> <leader>D ?def
 au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
@@ -410,8 +411,8 @@ map <leader>f :MRU<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Git gutter (Git diff)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gitgutter_enabled=0
-nnoremap <silent> <leader>d :GitGutterToggle<cr>
+let g:gitgutter_enabled=1
+"nnoremap <silent> <leader>d :GitGutterToggle<cr>
 
 "Tlist keymap
 "=============
@@ -419,8 +420,8 @@ nmap <leader>] :TlistToggle<CR><CR>
 
 " Stripping white space
 " =====================
-"nmap <C-\>w :StripWhitespace <CR><CR>
-nmap <leader>s :StripWhitespace <CR><CR>
+nmap <C-\>w :StripWhitespace <CR><CR>
+"nmap <leader>s :StripWhitespace <CR><CR>
 
 "undotree
 nnoremap <leader>u :UndotreeToggle<cr>
@@ -475,10 +476,10 @@ let NERDTreeShowBookmarks=1
 
 " Nerdcommenter
 "===================================
-" <leader>cc   加注释
-" <leader>cu   解开注释
-" <leader>c<space>  加上/解开注释, 智能判断
-" <leader>cy   先复制, 再注解(p可以进行黏贴)
+" map <leader>cc NERDComComment " 加注释
+" map <leader>cu NERDComNestedComment  解开注释
+" map <leader>c<space>  加上/解开注释, 智能判断
+" map <leader>cy   先复制, 再注解(p可以进行黏贴)
 "===================================
 " 注释的时候自动加个空格, 强迫症必配
 let g:NERDSpaceDelims=1
@@ -495,9 +496,8 @@ let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
-"let g:airline#extensions#ale#enabled = 1
 let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
 let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
@@ -508,6 +508,7 @@ let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/" ]
 " ========airline状态栏=========
 " Airline
 " =====================
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_section_b = '%-0.10{getcwd()}'
 let g:airline_section_c = '%t'
@@ -558,22 +559,22 @@ nmap <leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 set completeopt=menu,menuone
 let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
 
-" ===========gutentags=============
-" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
+" " ===========gutentags=============
+" " 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+" let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
 
-" 添加ctags额外参数，会让tags文件变大
-" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
- let g:gutentags_ctags_extra_args = ['--fields=+lS']
-" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" " 添加ctags额外参数，会让tags文件变大
+" " let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
+" let g:gutentags_ctags_extra_args = ['--fields=+lS']
+" " let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" " let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-if isdirectory("kernel/") && isdirectory("mm/")
-	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
-endif
+" if isdirectory("kernel/") && isdirectory("mm/")
+	" let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
+" endif
 
-" 禁用 gutentags 自动加载 gtags 数据库的行为
-let g:gutentags_auto_add_gtags_cscope = 0
+" " 禁用 gutentags 自动加载 gtags 数据库的行为
+" let g:gutentags_auto_add_gtags_cscope = 0
 
 "-------------------------------------------------------------------------------
 "  自动加载ctags: ctags -R
