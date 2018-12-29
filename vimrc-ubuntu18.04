@@ -114,6 +114,11 @@ set term=screen-256color " Set utf8 as standard encoding and en_US as the standa
 set encoding=utf8
 set ffs=unix,dos,mac     " Use Unix as the standard file type
 
+set langmenu=zh_CN.UTF-8
+set helplang=cn
+set termencoding=utf-8
+set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
