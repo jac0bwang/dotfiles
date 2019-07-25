@@ -1,8 +1,8 @@
 [credential]
     helper = store
 [user]
-    name = Jacob Wang
-    email = jacob.wang@pica8.local
+    name = sample
+    email = sample@example.com
 [color]
 	ui = true
     branch = auto
@@ -13,3 +13,4 @@
     default = current
 [core]
 	pager = less
+	editor = vim

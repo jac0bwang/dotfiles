@@ -10,7 +10,7 @@ call vundle#begin()
 " MiniBufferExplorer Syntastic SuperTab
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar' " Tag bar"
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -29,21 +29,15 @@ Plugin 'mbbill/undotree'
 " 代码缩进标识
 "Plugin 'Yggdroot/indentLine' " Indentation level"
 Plugin 'bling/vim-bufferline' " Buffer line"
-"Plugin 'kepbod/quick-scope' " Quick scope
-"Plugin 'yianwillis/vimcdoc'
-"Plugin 'nelstrom/vim-visual-star-search'
-" Plugin 'ludovicchabant/vim-gutentags' " 自动生成索引
-Plugin 'w0rp/ale'
-Plugin 'mbbill/echofunc'
-Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
+"Plugin 'w0rp/ale'
+"Plugin 'mbbill/echofunc'
+"Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plugin 'ntpeters/vim-better-whitespace'
-"Plugin 'terryma/vim-multiple-cursors'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'nsf/gocode', {'rtp': 'vim/'} " GO
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -59,10 +53,6 @@ let mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-"command W w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -96,14 +86,13 @@ set fdc=1       " Add a bit extra margin to the left --- foldcolumn
 " No annoying sound on errors --- belloff
 "set noerrorbells
 "set novisualbell
-set belloff=all
+"
+" Ubuntu 12.04 no this option
+"set belloff=all
+
 set t_vb=
 set tm=500
 
-"""" Configure backspace so it acts as it should act
-"""set backspace=eol,start,indent
-"""set whichwrap+=<,>,h,l
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => Colors and Fonts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -160,7 +149,7 @@ set nosmarttab expandtab
 """set softtabstop=4
 """set shiftwidth=4
 """set tabstop=8
-"
+
 "" Linebreak on 500 characters
 set lbr
 set tw=500
@@ -196,6 +185,7 @@ map <space> /
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
+hi Search cterm=None ctermfg=Red ctermbg=LightYellow
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -258,54 +248,10 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-"map 0 ^
-"
-"" Move a line of text using ALT+[jk] or Command+[jk] on mac
-"nmap <M-j> mz:m+<cr>`z
-"nmap <M-k> mz:m-2<cr>`z
-"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-"
-"if has("mac") || has("macunix")
-"  nmap <D-j> <M-j>
-"  nmap <D-k> <M-k>
-"  vmap <D-j> <M-j>
-"  vmap <D-k> <M-k>
-"endif
-"
-"" Delete trailing white space on save, useful for some filetypes ;)
-"fun! CleanExtraSpaces()
-"    let save_cursor = getpos(".")
-"    let old_query = getreg('/')
-"    silent! %s/\s\+$//e
-"    call setpos('.', save_cursor)
-"    call setreg('/', old_query)
-"endfun
-"
-"if has("autocmd")
-"    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-"endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Pressing ,ss will toggle and untoggle spell checking
-""map <leader>ss :setlocal spell!<cr>
-""
-""" Shortcuts using <leader>
-""map <leader>sn ]s
-""map <leader>sp [s
-""map <leader>sa zg
-""map <leader>s? z=
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+" noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 "" Quickly open a buffer for scribble
 "map <leader>q :e ~/buffer<cr>
@@ -343,7 +289,7 @@ au FileType python set indentkeys-=0#
 " => MRU plugin
 """"""""""""""""""""""""""""""
 let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
+map <leader>m :MRU<CR>
 
 """"""""""""""""""""""""""""""
 " => CTRL-P
@@ -453,34 +399,34 @@ nnoremap <leader>u :UndotreeToggle<cr>
 set undodir=~/.undodir/
 set undofile
 
-" ==============YCM==============
-let g:ycm_server_python_interpreter='/usr/bin/python'
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-
-" YCM 查找定义
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_collect_identifiers_from_tags_files = 1
-
-let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
-let g:ycm_complete_in_strings=1
-
-noremap <c-z> <NOP>
-let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
-let g:ycm_max_num_candidates = 30  " 候选数量
-
-let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
-
-" YCM还支持语义诊断
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>*'
+"" ==============YCM==============
+"let g:ycm_server_python_interpreter='/usr/bin/python'
+"let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+"
+"" YCM 查找定义
+"nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"let g:ycm_collect_identifiers_from_tags_files = 1
+"
+"let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
+"let g:ycm_server_log_level = 'info'
+"let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
+"let g:ycm_complete_in_strings=1
+"
+"noremap <c-z> <NOP>
+"let g:ycm_key_invoke_completion = '<c-z>'   " YCM 里触发语义补全有一个快捷键
+"let g:ycm_max_num_candidates = 30  " 候选数量
+"
+"let g:ycm_semantic_triggers =  {
+"			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+"			\ 'cs,lua,javascript': ['re!\w{2}'],
+"			\ }
+"
+"" YCM还支持语义诊断
+"let g:ycm_error_symbol = '>>'
+"let g:ycm_warning_symbol = '>*'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
@@ -517,22 +463,22 @@ let g:NERDSpaceDelims=1
 "let g:winManagerWindowLayout='FileExplorer'
 "nmap wm :WMToggle<cr>
 
-" ======ALE静态语法检测========
-"let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = 'w'
-let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
+"" ======ALE静态语法检测========
+""let g:ale_sign_column_always = 1
+"let g:ale_sign_error = '✗'
+"let g:ale_sign_warning = 'w'
+"let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+"let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+"let g:ale_lint_on_text_changed = 'normal'
+"let g:ale_lint_on_insert_leave = 1
+"let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+"let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
+"let g:ale_c_cppcheck_options = ''
+"let g:ale_cpp_cppcheck_options = ''
 
 " Linux code style
 " =====================
-let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/" ]
+let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/", "/.*WTOS.*/", "/.*freebsd.*/" ]
 
 " ========airline状态栏=========
 " Airline
@@ -540,7 +486,8 @@ let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/" ]
 let g:airline_powerline_fonts = 1
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline_section_b = '%-0.10{getcwd()}'
-let g:airline_section_c = '%t'
+" let g:airline_section_c = '%t'
+let g:airline_section_c = '%f'
 " let g:airline#extensions#tagbar#enabled = 1
 " let g:airline_section_y = ''
 let g:airline_section_warning = ''
@@ -551,7 +498,7 @@ let g:airline_section_warning = ''
 "--------------------------------------------------------------------------------
 if has("cscope")
   set csprg=/usr/bin/cscope
-  set csto=1
+  set csto=0
   set cst
   set nocsverb
   " add any database in current directory
@@ -586,8 +533,8 @@ nmap <leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 " =======echofunc 显示函数参数===========
 " ctags -R --fields=+lS .
-set completeopt=menu,menuone
-let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
+" set completeopt=menu,menuone
+" let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
 
 " " ===========gutentags=============
 " " 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
@@ -608,9 +555,10 @@ let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
 
 "-------------------------------------------------------------------------------
 "  自动加载ctags: ctags -R
-if filereadable("tags")
-      set tags=tags
-endif
+" if filereadable("tags")
+"       set tags=tags
+" endif
+set tags=./tags;/
 
 "--------------------------------------------------------------------------------
 " global:建立数据库
@@ -640,3 +588,42 @@ endfunction
 
 nnoremap <leader>cn :cn<cr>
 nnoremap <leader>cp :cp<cp>
+
+" Folding
+" =============================================================================
+" za : Toggle code folding at the current line.
+" zo : Open fold
+" zc : Close fold
+" zR : Open all folds
+" zM : Close all folds
+" set foldmethod=indent
+set foldlevelstart=0
+
+" Space to toggle folds.
+nnoremap <space> za
+vnoremap <space> za
+" Refocus folds
+nnoremap ,z zMzvzz
+
+"ctrl + y
+"ctrl + e
+"ctrl + u
+"ctrl + d
+"ctrl + f
+"ctrl + b
+"
+"g;
+"g,
+"
+"ctrl + i
+"ctrl + o
+"
+"m{a-z,A-Z} ; set mark
+"`{a-z,A-Z}
+"
+" goto file: gf
+"
+"
+" Buffers/Windows/Tags
+" ====================
+"
