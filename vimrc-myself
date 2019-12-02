@@ -1,0 +1,479 @@
+" ==============Vundle插件管理==============
+" Vundle manage
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" Snipmate
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'majutsushi/tagbar' " Tag bar"
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'scrooloose/syntastic'
+Plugin 'vim-airline/vim-airline' | Plugin 'vim-airline/vim-airline-themes' " Status line"
+Plugin 'jiangmiao/auto-pairs'     " 自动匹配括号、引号
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdcommenter' " 这是一款用于快速高效注释代码的插件
+Plugin 'mbbill/undotree'          " 强大的撤销更改功能
+Plugin 'gdbmgr'
+Plugin 'Yggdroot/indentLine' " Indentation level" " 代码缩进标识
+Plugin 'bling/vim-bufferline' " Buffer line"
+"Plugin 'kepbod/quick-scope' " Quick scope
+"Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'w0rp/ale'
+"Plugin 'mbbill/echofunc'
+Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'tpope/vim-surround'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'airblade/vim-gitgutter'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+let mapleader = ","
+
+" Set to auto read when a file is changed from the outside
+set autoread
+set autowrite   " 自动保存
+
+set foldmethod=syntax
+set foldlevel=100  " 启动vim时不要自动折叠代码
+
+" like <leader>w saves the current file
+nmap <leader>w :w<cr>
+nmap <leader>q :q<cr>
+nmap <leader>q! :q!<cr>
+nmap <leader>x :x<cr>
+
+" VIM user interface
+"==============================================================================
+" Set 7 lines to the cursor - when moving vertically using j/k
+set wildmenu    " Turn on the Wild menu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+set ruler       "Always show current position
+set cmdheight=2 " Height of the command bar
+set hid         " A buffer becomes hidden when it is abandoned
+set ignorecase  " Ignore case when searching
+set smartcase   " When searching try to be smart about cases
+set hlsearch    " Highlight search results
+set incsearch   " Makes search act like search in modern browsers
+set lazyredraw  " Don't redraw while executing macros (good performance config)
+set magic       " For regular expressions turn magic on
+set showmatch   " Show matching brackets when text indicator is over them
+set mat=2       " How many tenths of a second to blink when matching brackets
+set fdc=1       " Add a bit extra margin to the left --- foldcolumn
+
+"" No annoying sound on errors --- belloff
+""set noerrorbells
+""set novisualbell
+"set belloff=all
+"set t_vb=
+"set tm=500
+"
+
+" Colors and Fonts
+"==============================================================================
+syntax enable            " Enable syntax highlighting
+
+set term=screen-256color " Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+set ffs=unix,dos,mac     " Use Unix as the standard file type
+
+set langmenu=zh_CN.UTF-8
+set helplang=cn
+set termencoding=utf-8
+set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
+
+" Files, backups and undo
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+"==============================================================================
+set nobackup
+set nowb
+set noswapfile
+
+" Text, tab and indent related
+"==============================================================================
+set shiftwidth=4 tabstop=4
+set softtabstop=4
+set nosmarttab expandtab
+
+set ai 		            		"Auto indent
+set si			            	"Smart indent
+set wrap            			"Wrap lines
+
+set textwidth=80                "line width
+set colorcolumn=80      		" 80 characters line
+set tagstack                    "Control t and ] for tags.
+set tabpagemax=30               "Set tab limits
+set fillchars+=vert:\           "Set the vertical split without any char
+set cursorline                  "higlight the cursor line
+set number                      "Show line number
+set pastetoggle=<F5>            "set paste use the system Clipboard
+set history=200                 "set the history 200 command line
+
+" Moving around, tabs, windows and buffers
+"==============================================================================
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+noremap <C-Down>  <C-W>j
+noremap <C-Up>    <C-W>k
+noremap <C-Left>  <C-W>h
+noremap <C-Right> <C-W>l
+
+" Tabs
+"==============================================================================
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+"Mapping to ALT 1 to 9. Do the following to find to key ascii to map
+"set showcmd
+"go the window in the insert mode then type the key u want
+"if u see any value than that value can be mapped
+nmap 11 :tabn 1 <CR>
+nmap 22 :tabn 2 <CR>
+nmap 33 :tabn 3 <CR>
+nmap 44 :tabn 4 <CR>
+nmap 55 :tabn 5 <CR>
+nmap 66 :tabn 6 <CR>
+nmap 77 :tabn 7 <CR>
+nmap 88 :tabn 8 <CR>
+nmap 99 :tabn 9 <CR>
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Status line
+"==============================================================================
+set laststatus=2	" Always show the status line
+
+" Spell checking
+"==============================================================================
+"" Pressing ,ss will toggle and untoggle spell checking
+"map <leader>ss :setlocal spell!<cr>
+"
+"" Shortcuts using <leader>
+"map <leader>sn ]s
+"map <leader>sp [s
+"map <leader>sa zg
+"map <leader>s? z=
+
+" Misc
+"==============================================================================
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Python section
+"==============================================================================
+let python_highlight_all = 1
+au FileType python syn keyword pythonDecorator True None False self
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+au BufNewFile,BufRead *.jinja set syntax=htmljinja
+au BufNewFile,BufRead *.mako set ft=mako
+
+au FileType python map <buffer> F :set foldmethod=indent<cr>
+
+au FileType python inoremap <buffer> $r return
+au FileType python inoremap <buffer> $i import
+au FileType python inoremap <buffer> $p print
+au FileType python inoremap <buffer> $f # --- <esc>a
+au FileType python map <buffer> <leader>1 /class
+au FileType python map <buffer> <leader>2 /def
+au FileType python map <buffer> <leader>C ?class
+"au FileType python map <buffer> <leader>D ?def
+au FileType python set cindent
+au FileType python set cinkeys-=0#
+au FileType python set indentkeys-=0#
+
+" MRU plugin
+"==============================================================================
+let MRU_Max_Entries = 400
+map <leader>f :MRU<CR>
+
+" CTRL-P
+"==============================================================================
+" Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.
+" Run :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode.
+" Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.
+" Check :help ctrlp-commands and :help ctrlp-extensions for other commands.
+"
+" Once CtrlP is open:
+" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+" Press <c-f> and <c-b> to cycle between modes.
+" Press <c-d> to switch to filename only search instead of full path.
+" Press <c-r> to switch to regexp mode.
+" Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+" Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+" Use <c-y> to create a new file and its parent directories.
+" Use <c-z> to mark/unmark multiple files and <c-o> to open them.
+"'c' - the directory of the current file.
+"'r' - the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr _darcs
+"'a' - like c, but only if the current working directory outside of CtrlP is not a direct ancestor of the directory of the current file.
+"0 or '' (empty string) - disable this feature.
+let g:ctrlp_working_path_mode = "cra"
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+map <leader>fp :CtrlPMRU<CR>
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }"
+
+" let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=20
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+
+"  apt-get install silversearcher-ag
+if executable('ag')
+    " Use Ag over Grep
+    set grepprg=ag\ --nogroup\ --nocolor
+    " Use ag in CtrlP for listing files.
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " Ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
+
+" vim-multiple-cursors
+"==============================================================================
+"let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+"let g:multi_cursor_start_word_key      = '<C-s>'
+"let g:multi_cursor_select_all_word_key = '<A-s>'
+"let g:multi_cursor_start_key           = 'g<C-s>'
+"let g:multi_cursor_select_all_key      = 'g<A-s>'
+"let g:multi_cursor_next_key            = '<C-s>'
+"let g:multi_cursor_prev_key            = '<C-p>'
+"let g:multi_cursor_skip_key            = '<C-x>'
+"let g:multi_cursor_quit_key            = '<Esc>'
+
+" surround.vim config: Annotate strings with gettext
+"==============================================================================
+"vmap Si S(i_<esc>f)
+"au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+
+" Git gutter (Git diff)
+"==============================================================================
+let g:gitgutter_enabled=1
+"nnoremap <silent> <leader>d :GitGutterToggle<cr>
+
+"Tlist keymap
+"==============================================================================
+nmap <leader>] :TlistToggle<CR><CR>
+
+" Tagbar
+"==============================================================================
+let g:tagbar_width= 35
+let g:tagbar_left = 1
+nmap <leader>tb :TagbarToggle<CR>
+"autocmd BufReadPost *.cpp,*.c,*.h,*.cc,*.cxx,*.py,*.go,*.rs call tagbar#autoopen()
+
+" Stripping white space
+"==============================================================================
+nmap <C-\>w :StripWhitespace <CR><CR>
+
+" undotree
+"==============================================================================
+nnoremap <leader>u :UndotreeToggle<cr>
+set undodir=~/.undodir/
+set undofile
+
+" YCM
+"==============================================================================
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+
+" NerdTree
+"==============================================================================
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinSize=35
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeShowLineNumbers=1
+let NERDTreeAutoCenter=1
+let NERDTreeShowBookmarks=1
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
+
+" Nerdcommenter
+"==============================================================================
+" map <leader>cc NERDComComment " 加注释
+" map <leader>cu NERDComNestedComment  解开注释
+" map <leader>c<space>  加上/解开注释, 智能判断
+" map <leader>ci  加上/解开注释, 智能判断
+" map <leader>cy   先复制, 再注解(p可以进行黏贴)
+let g:NERDSpaceDelims=1             " 注释的时候自动加个空格, 强迫症必配
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'rust': {'left': '/*','right': '*/'}  }
+
+" ALE静态语法检测
+"==============================================================================
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = 'w'
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+" Linux code style
+"==============================================================================
+let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/", "/.*git.*" , "/.*work.*"]
+
+" Airline
+"==============================================================================
+let g:airline_powerline_fonts = 1
+let g:airline_section_c = '%f'
+let g:airline_section_warning = ''
+
+" cscope -Rbq
+"==============================================================================
+if has("cscope")
+  set csprg=/usr/bin/cscope
+  set csto=1
+  set cst
+  set nocsverb
+  " add any database in current directory
+  if filereadable("cscope.out")
+      cs add cscope.out
+  endif
+  set csverb
+endif
+
+" Key maps:
+"       0 or s: Find this C symbol
+"       1 or g: Find this definition
+"       2 or d: Find functions called by this function
+"       3 or c: Find functions calling this function
+"       4 or t: Find this text string
+"       6 or e: Find this egrep pattern
+"       7 or f: Find this file
+"       8 or i: Find files #including this file
+" 设定是否使用 quickfix 窗口来显示 cscope 结果
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+nmap <leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <leader>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <leader>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+" echofunc 显示函数参数
+" ctags -R --fields=+lS .
+"==============================================================================
+"set completeopt=menu,menuone
+"let g:ycm_add_preview_to_completeopt = 0  " 关闭函数原型提示
+
+" ctags: ctags -R
+"==============================================================================
+if filereadable("tags")
+    set tags=tags
+endif
+
+" global:建立数据库
+"==============================================================================
+if filereadable("GTAGS")
+	set cscopetag
+	set cscopeprg=gtags-cscope
+	cs add GTAGS
+	au BufWritePost *.c,*.cpp,*.h silent! !global -u &
+endif
+
+" Quickfix
+"==============================================================================
+nnoremap <leader>qf :call QuickfixToggle()<cr>
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+    else
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
+nnoremap <leader>cn :cn<cr>
+nnoremap <leader>cp :cp<cp>
+
+"" vim-go
+"" ================================
+"autocmd FileType go nmap <leader>b  <Plug>(go-build)
+"autocmd FileType go nmap <leader>r  <Plug>(go-run)
+"
+"let g:go_list_type = "quickfix"
+"let g:go_fmt_command = "goimports" " Run goimports along gofmt on each save
+"let g:go_auto_type_info = 1        " Automatically get signature/type info for object under cursor
+"
+""au filetype go inoremap <buffer> . .<C-x><C-o>
+""
+"autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+"" ts - show existing tab with 4 spaces width
+"" sw - when indenting with '>', use 4 spaces width
+"" sts - control <tab> and <bs> keys to match tabstop
