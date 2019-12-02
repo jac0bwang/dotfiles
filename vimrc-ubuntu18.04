@@ -44,6 +44,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'nsf/gocode', {'rtp': 'vim/'} " GO
+Plugin 'fatih/vim-go'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -99,6 +100,14 @@ set fdc=1       " Add a bit extra margin to the left --- foldcolumn
 set belloff=all
 set t_vb=
 set tm=500
+
+" Allow backspace to delete indentation and inserted text
+" i.e. how it works in most programs
+set backspace=indent,eol,start
+" indent  allow backspacing over autoindent
+" eol     allow backspacing over line breaks (join lines)
+" start   allow backspacing over the start of insert; CTRL-W and CTRL-U
+"        stop once at the start of insert.
 
 """" Configure backspace so it acts as it should act
 """set backspace=eol,start,indent
@@ -321,6 +330,7 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 """"""""""""""""""""""""""""""
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 au BufNewFile,BufRead *.jinja set syntax=htmljinja
 au BufNewFile,BufRead *.mako set ft=mako
@@ -343,7 +353,7 @@ au FileType python set indentkeys-=0#
 " => MRU plugin
 """"""""""""""""""""""""""""""
 let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
+" map <leader>f :MRU<CR>
 
 """"""""""""""""""""""""""""""
 " => CTRL-P
@@ -454,7 +464,7 @@ set undodir=~/.undodir/
 set undofile
 
 " ==============YCM==============
-let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_server_python_interpreter='/usr/bin/python python3'
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 
 " YCM 查找定义
@@ -508,10 +518,14 @@ let NERDTreeShowBookmarks=1
 " map <leader>cc NERDComComment " 加注释
 " map <leader>cu NERDComNestedComment  解开注释
 " map <leader>c<space>  加上/解开注释, 智能判断
+" map <leader>ci  加上/解开注释, 智能判断
 " map <leader>cy   先复制, 再注解(p可以进行黏贴)
 "===================================
 " 注释的时候自动加个空格, 强迫症必配
 let g:NERDSpaceDelims=1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/*','right': '*/'  }, 'rust': {'left': '/*','right': '*/'}  }
 
 "let g:winManagerWindowLayout='TagList'
 "let g:winManagerWindowLayout='FileExplorer'
@@ -532,7 +546,7 @@ let g:ale_cpp_cppcheck_options = ''
 
 " Linux code style
 " =====================
-let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/" ]
+let g:linuxsty_patterns = [ "/.*linux.*/", "/.*driver.*/", "/.*git.*" , "/.*work.*"]
 
 " ========airline状态栏=========
 " Airline
@@ -640,3 +654,22 @@ endfunction
 
 nnoremap <leader>cn :cn<cr>
 nnoremap <leader>cp :cp<cp>
+" map <C-n> :cnext<CR>
+" map <C-m> :cprevious<CR>
+" nnoremap <leader>a :cclose<CR>
+
+" vim-go
+" =============================================================================
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports" " Run goimports along gofmt on each save
+let g:go_auto_type_info = 1        " Automatically get signature/type info for object under cursor
+
+"au filetype go inoremap <buffer> . .<C-x><C-o>
+"
+autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
+" ts - show existing tab with 4 spaces width
+" sw - when indenting with '>', use 4 spaces width
+" sts - control <tab> and <bs> keys to match tabstop
