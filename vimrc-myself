@@ -21,12 +21,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdcommenter' " 这是一款用于快速高效注释代码的插件
 Plugin 'mbbill/undotree'          " 强大的撤销更改功能
 Plugin 'gdbmgr'
-Plugin 'Yggdroot/indentLine' " Indentation level" " 代码缩进标识
+"Plugin 'Yggdroot/indentLine' " Indentation level" " 代码缩进标识
 Plugin 'bling/vim-bufferline' " Buffer line"
 "Plugin 'kepbod/quick-scope' " Quick scope
 "Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'w0rp/ale'
-"Plugin 'mbbill/echofunc'
+Plugin 'dense-analysis/ale'
+" Plugin 'mbbill/echofunc'
 Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'kien/ctrlp.vim'
@@ -34,7 +34,18 @@ Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'rdnetto/YCM-Generator'
 
+" clang_complete
+" nerdcommenter（注释）
+" vim-fugitive（git）
+" vim-gitgutter（git）
+" code_complete
+" echofunc
+"call pathogen#incubate("after")
+" call pathogen#infect('after')
+" call pathogen#infect('after/{}')
+"
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -50,7 +61,6 @@ set foldlevel=100  " 启动vim时不要自动折叠代码
 
 " like <leader>w saves the current file
 nmap <leader>w :w<cr>
-nmap <leader>q :q<cr>
 nmap <leader>q! :q!<cr>
 nmap <leader>x :x<cr>
 
@@ -92,10 +102,9 @@ set fdc=1       " Add a bit extra margin to the left --- foldcolumn
 "==============================================================================
 syntax enable            " Enable syntax highlighting
 
-set term=screen-256color " Set utf8 as standard encoding and en_US as the standard language
+set term=screen-256color
 set encoding=utf8
 set ffs=unix,dos,mac     " Use Unix as the standard file type
-
 set langmenu=zh_CN.UTF-8
 set helplang=cn
 set termencoding=utf-8
@@ -208,7 +217,7 @@ set laststatus=2	" Always show the status line
 " Misc
 "==============================================================================
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <Leader>M mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Python section
 "==============================================================================
@@ -236,7 +245,7 @@ au FileType python set indentkeys-=0#
 " MRU plugin
 "==============================================================================
 let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
+map <leader>m :MRU<CR>
 
 " CTRL-P
 "==============================================================================
@@ -262,7 +271,7 @@ map <leader>f :MRU<CR>
 let g:ctrlp_working_path_mode = "cra"
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-map <leader>fp :CtrlPMRU<CR>
+map <leader>p :CtrlPMRU<CR>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = {
@@ -338,6 +347,12 @@ set undofile
 let g:ycm_server_python_interpreter='/usr/bin/python'
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 
+let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
+let g:ycm_complete_in_strings=1
+
 " NerdTree
 "==============================================================================
 autocmd StdinReadPre * let s:std_in=1
@@ -369,6 +384,7 @@ let g:NERDCustomDelimiters = { 'rust': {'left': '/*','right': '*/'}  }
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = 'w'
+let g:ale_set_highlights = 0
 let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_lint_on_text_changed = 'normal'
@@ -446,7 +462,7 @@ endif
 
 " Quickfix
 "==============================================================================
-nnoremap <leader>qf :call QuickfixToggle()<cr>
+nnoremap <leader>q :call QuickfixToggle()<cr>
 let g:quickfix_is_open = 0
 
 function! QuickfixToggle()
