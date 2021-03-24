@@ -48,6 +48,20 @@ flags = [
 '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/c++/v1',
 '-isystem',
 '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include',
+'-stdlib=libc++'
+'-I', '.',
+'-isystem',
+'/Library/Developer/CommandLineTools/usr/include/c++/v1',
+'-isystem',
+'/usr/local/include',
+'-isystem',
+'/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include',
+'-isystem',
+'/Library/Developer/CommandLineTools/usr/include',
+'-isystem',
+'/System/Library/Frameworks',
+'-isystem',
+'/Library/Frameworks',
 ]
 
 

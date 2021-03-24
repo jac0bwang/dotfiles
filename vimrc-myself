@@ -4,37 +4,59 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 " Snipmate
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'majutsushi/tagbar' " Tag bar"
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
-Plugin 'vim-airline/vim-airline' | Plugin 'vim-airline/vim-airline-themes' " Status line"
-Plugin 'jiangmiao/auto-pairs'     " 自动匹配括号、引号
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdcommenter' " 这是一款用于快速高效注释代码的插件
-Plugin 'mbbill/undotree'          " 强大的撤销更改功能
-Plugin 'gdbmgr'
-"Plugin 'Yggdroot/indentLine' " Indentation level" " 代码缩进标识
-Plugin 'bling/vim-bufferline' " Buffer line"
-"Plugin 'kepbod/quick-scope' " Quick scope
-"Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'dense-analysis/ale'
-" Plugin 'mbbill/echofunc'
-Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'tpope/vim-surround'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'rdnetto/YCM-Generator'
+" let vim-plug manage required
+"
+" neovim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"Plug 'Valloric/YouCompleteMe'
+Plug 'majutsushi/tagbar' " Tag bar"
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/syntastic'
+" Status line"
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" 自动匹配括号、引号
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-fugitive'
+
+" 这是一款用于快速高效注释代码的插件
+Plug 'scrooloose/nerdcommenter'
+
+" 强大的撤销更改功能
+Plug 'mbbill/undotree'
+
+"Plug 'Yggdroot/indentLine' " Indentation level" " 代码缩进标识
+Plug 'bling/vim-bufferline' " Buffer line"
+"Plug 'kepbod/quick-scope' " Quick scope
+"Plug 'nelstrom/vim-visual-star-search'
+Plug 'dense-analysis/ale'
+
+" Plug 'mbbill/echofunc'
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension'  }
+Plug 'tamago324/LeaderF-filer'
+
+Plug 'ntpeters/vim-better-whitespace'
+
+Plug 'kien/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
+
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+Plug 'airblade/vim-gitgutter'
+
+Plug 'rdnetto/YCM-Generator'
+
+" python autocomplete
+Plug 'davidhalter/jedi-vim'
+
+" Golang
+Plug 'fatih/vim-go'
 
 " clang_complete
 " nerdcommenter（注释）
@@ -47,7 +69,7 @@ Plugin 'rdnetto/YCM-Generator'
 " call pathogen#infect('after/{}')
 "
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
 
 let mapleader = ","
@@ -88,7 +110,7 @@ set lazyredraw  " Don't redraw while executing macros (good performance config)
 set magic       " For regular expressions turn magic on
 set showmatch   " Show matching brackets when text indicator is over them
 set mat=2       " How many tenths of a second to blink when matching brackets
-set fdc=1       " Add a bit extra margin to the left --- foldcolumn
+"set fdc=1       " Add a bit extra margin to the left --- foldcolumn
 
 "" No annoying sound on errors --- belloff
 ""set noerrorbells
@@ -97,6 +119,9 @@ set fdc=1       " Add a bit extra margin to the left --- foldcolumn
 "set t_vb=
 "set tm=500
 "
+
+hi Search ctermbg=LightYellow
+hi Search ctermfg=Red
 
 " Colors and Fonts
 "==============================================================================
@@ -127,8 +152,8 @@ set ai 		            		"Auto indent
 set si			            	"Smart indent
 set wrap            			"Wrap lines
 
-set textwidth=80                "line width
-set colorcolumn=80      		" 80 characters line
+" set textwidth=80                "line width
+" set colorcolumn=80      		" 80 characters line
 set tagstack                    "Control t and ] for tags.
 set tabpagemax=30               "Set tab limits
 set fillchars+=vert:\           "Set the vertical split without any char
@@ -342,16 +367,46 @@ nnoremap <leader>u :UndotreeToggle<cr>
 set undodir=~/.undodir/
 set undofile
 
+"set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+"
 " YCM
 "==============================================================================
-let g:ycm_server_python_interpreter='/usr/bin/python'
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+" let g:ycm_server_python_interpreter='/usr/bin/python3'
+" let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+"
+" let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
+" let g:ycm_server_log_level = 'info'
+" let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
+" let g:ycm_complete_in_comments=1
+" let g:ycm_complete_in_strings=1
+" let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
+" let g:ycm_collect_identifiers_from_tags_files=1 " 开启 YCM 基于标签引擎"
+" let g:ycm_cache_omnifunc=0  " 禁止缓存匹配项,每次都重新生成匹配项"
+" let g:ycm_seed_identifiers_with_syntax=1    " 语法关键字补全"
 
-let g:ycm_show_diagnostics_ui = 0 " 关闭诊断信息
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2  " 两个字符触发 补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 收集
-let g:ycm_complete_in_strings=1
+" " Mapping to close the completion menu (default <C-y>)
+" let g:ycm_key_list_stop_completion = ['<C-x>']
+
+" " Set filetypes where YCM will be turned on
+" let g:ycm_filetype_whitelist = { 'cpp':1, 'h':2, 'hpp':3, 'c':4, 'cxx':5, 'rs':6, 'go':7}
+
+" " Close preview window after completing the insertion
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
+
+" let g:ycm_confirm_extra_conf = 0                 " Don't confirm python conf
+" let g:ycm_always_populate_location_list = 1      " Always populae diagnostics list
+" let g:ycm_enable_diagnostic_signs = 1            " Enable line highligting diagnostics
+" let g:ycm_open_loclist_on_ycm_diags = 1          " Open location list to view diagnostics
+
+" let g:ycm_max_num_candidates = 20                " Max number of completion suggestions
+" let g:ycm_max_num_identifier_candidates = 10     " Max number of identifier-based suggestions
+" let g:ycm_auto_trigger = 1                       " Enable completion menu
+" let g:ycm_show_diagnostic_ui = 1                 " Show diagnostic display features
+" let g:ycm_error_symbol = '>>'                    " The error symbol in Vim gutter
+" let g:ycm_enable_diagnostic_signs = 1            " Display icons in Vim's gutter, error, warnings
+" let g:ycm_enable_diagnostic_highlighting = 1     " Highlight regions of diagnostic text
+" let g:ycm_echo_current_diagnostic = 1            " Echo line's diagnostic that cursor is on
 
 " NerdTree
 "==============================================================================
@@ -407,7 +462,7 @@ let g:airline_section_warning = ''
 " cscope -Rbq
 "==============================================================================
 if has("cscope")
-  set csprg=/usr/bin/cscope
+  set csprg=/usr/local/bin/cscope
   set csto=1
   set cst
   set nocsverb
@@ -478,18 +533,3 @@ endfunction
 nnoremap <leader>cn :cn<cr>
 nnoremap <leader>cp :cp<cp>
 
-"" vim-go
-"" ================================
-"autocmd FileType go nmap <leader>b  <Plug>(go-build)
-"autocmd FileType go nmap <leader>r  <Plug>(go-run)
-"
-"let g:go_list_type = "quickfix"
-"let g:go_fmt_command = "goimports" " Run goimports along gofmt on each save
-"let g:go_auto_type_info = 1        " Automatically get signature/type info for object under cursor
-"
-""au filetype go inoremap <buffer> . .<C-x><C-o>
-""
-"autocmd Filetype go setlocal tabstop=4 shiftwidth=4 softtabstop=4
-"" ts - show existing tab with 4 spaces width
-"" sw - when indenting with '>', use 4 spaces width
-"" sts - control <tab> and <bs> keys to match tabstop
